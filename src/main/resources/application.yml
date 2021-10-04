@@ -1,0 +1,25 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=sec
+    username: postgres
+    password: admin
+  flyway:
+    enabled: true
+    schemas: sec
+  jpa:
+    properties:
+      hibernate:
+        default_schema: sec
+    show-sql: true
+
+logging:
+  pattern:
+    dateformat: dd-MM-yyyy HH:mm:ss.SSS ZZZ
+  level:
+    com.sec.backend: debug
