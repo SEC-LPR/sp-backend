@@ -15,5 +15,5 @@ CREATE TABLE "product" (
     "name"        VARCHAR(255) UNIQUE NOT NULL,
     "description" VARCHAR(2048),
     "price"       NUMERIC             NOT NULL,
-    "amount"      INTEGER             NOT NULL,
-)
+    "amount"      INTEGER             NOT NULL
+);

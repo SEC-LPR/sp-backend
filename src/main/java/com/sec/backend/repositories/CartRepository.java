@@ -19,10 +19,12 @@ public interface CartRepository extends JpaRepository<Cart, CartId> {
     List<Cart> findProductByUserId(@Param("userId") Long userId);
 
     @Modifying
-    @Query("delete from Cart c where c.id = :cartId")
-    int deleteByCartId(@Param("cardId") CartId cartId);
+    @Query("delete from Cart c where c.user.id = :userId and c.product.id = :productId")
+    int deleteCart(@Param("userId") Long userId, @Param("productId") Long productId);
 
     @Modifying
-    @Query("update Cart c set c.amount = :amount where c.id = :cartId")
-    int updateProductAmount(@Param("amount") Integer amount, @Param("cartId") CartId cartId);
+    @Query("update Cart c set c.amount = :amount where c.user.id = :userId and c.product.id = :productId")
+    int updateProductAmount(@Param("amount") Integer amount,
+                            @Param("userId") Long userId,
+                            @Param("productId") Long productId);
 }

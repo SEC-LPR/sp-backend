@@ -2,7 +2,6 @@ package com.sec.backend.services;
 
 import com.sec.backend.dtos.CartGetDto;
 import com.sec.backend.models.Cart;
-import com.sec.backend.models.CartId;
 import com.sec.backend.repositories.CartRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,20 +30,12 @@ public class CartService {
 
     @Transactional
     public void removeFromCart(Long userId, Long productId) {
-        CartId cartId = CartId.builder()
-                .userId(userId)
-                .productId(productId)
-                .build();
-        int num = cartRepository.deleteByCartId(cartId);
+        int num = cartRepository.deleteCart(userId, productId);
     }
 
     @Transactional
     public void updateProductAmount(Long userId, Long productId, Integer amount) {
-        CartId cartId = CartId.builder()
-                .userId(userId)
-                .productId(productId)
-                .build();
-        int num = cartRepository.updateProductAmount(amount, cartId);
+        int num = cartRepository.updateProductAmount(amount, userId, productId);
     }
 
     private CartGetDto mappingToGetDto(Cart cart) {
