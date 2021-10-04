@@ -42,7 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
-                        "/login"
+                        "/login", "signup", "/{userId}/credit",
+                        "/cart/{userId}/{productId}", "/cart/{userId}"
                 )
                 .permitAll()
                 .antMatchers("/", "index", "/css/*", "/actuator/*")
