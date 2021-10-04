@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -29,6 +31,7 @@ public class UserService {
     public UserGetDto login(String username, String password) {
         AppUser appUser = appUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("No such user"));
+        String encodedPassword = passwordEncoder.encode(password);
 
         Authentication authentication = this.authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -71,7 +74,7 @@ public class UserService {
 
     private AppUser mappingToAppUser(UserPostDto userPostDto) {
         return AppUser.builder()
-                .username(userPostDto.getUsername())
+                .username(userPostDto.getUsername().toLowerCase(Locale.ROOT))
                 .firstName(userPostDto.getFirstName())
                 .lastName(userPostDto.getLastName())
                 .build();

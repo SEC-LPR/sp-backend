@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Locale;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -20,7 +22,8 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody UserLoginDto userLoginDto) {
 
-        UserGetDto userGetDto = userService.login(userLoginDto.getUsername(), userLoginDto.getPassword());
+        UserGetDto userGetDto = userService.login(userLoginDto.getUsername().toLowerCase(Locale.ROOT),
+                userLoginDto.getPassword());
 
         return new ResponseEntity(userGetDto, HttpStatus.OK);
     }
