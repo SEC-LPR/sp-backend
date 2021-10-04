@@ -3,6 +3,7 @@ package com.sec.backend.services;
 import com.sec.backend.dtos.CartGetDto;
 import com.sec.backend.models.Cart;
 import com.sec.backend.repositories.CartRepository;
+import com.sec.backend.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CartService {
 
+    private final ProductRepository productRepository;
     private final CartRepository cartRepository;
 
     public List<CartGetDto> getListOfCart(Long userId) {
@@ -35,6 +37,7 @@ public class CartService {
 
     @Transactional
     public void updateProductAmount(Long userId, Long productId, Integer amount) {
+
         int num = cartRepository.updateProductAmount(amount, userId, productId);
     }
 
