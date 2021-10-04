@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/login", "/signup", "/{userId}/credit",
-                        "/cart/{userId}/{productId}", "/cart/{userId}"
+                        "/cart/{userId}/{productId}", "/cart/{userId}", "/test"
                 )
                 .permitAll()
                 .antMatchers("/", "index", "/css/*", "/actuator/*")
