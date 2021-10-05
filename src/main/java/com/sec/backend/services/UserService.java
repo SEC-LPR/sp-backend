@@ -7,6 +7,7 @@ import com.sec.backend.exceptions.UsernameConflictException;
 import com.sec.backend.models.AppUser;
 import com.sec.backend.models.CreditCard;
 import com.sec.backend.repositories.AppUserRepository;
+import com.sec.backend.repositories.CreditCardRepository;
 import com.sec.backend.utils.DESUtils;
 import com.sec.backend.utils.RSAUtils;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,8 @@ import java.util.Locale;
 public class UserService {
 
     private final AppUserRepository appUserRepository;
+
+    private final CreditCardRepository creditCardRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -62,8 +65,8 @@ public class UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("No such client!"));
         CreditCard creditCard = mappingToCreditCard(creditCardDto);
 
-        user.getCreditCards().add(creditCard);
-        appUserRepository.save(user);
+        creditCard.setUser(user);
+        creditCardRepository.save(creditCard);
 
     }
 
