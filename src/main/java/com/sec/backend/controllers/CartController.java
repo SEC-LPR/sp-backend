@@ -21,7 +21,7 @@ public class CartController {
 
     @GetMapping("/{userId}")
     public ResponseEntity getCartInfo(@PathVariable("userId") String userId) {
-        Long num = Long.getLong(userId);
+        Long num = Long.valueOf(userId);
         List<CartGetDto> listOfCart = cartService.getListOfCart(num);
         return new ResponseEntity(listOfCart, HttpStatus.OK);
     };
