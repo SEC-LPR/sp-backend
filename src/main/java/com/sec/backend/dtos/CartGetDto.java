@@ -21,4 +21,6 @@ public class CartGetDto {
 
     private BigDecimal price;
 
+    private Integer productAmount;
+
 }

@@ -46,6 +46,7 @@ public class CartService {
                 .productId(cart.getId().getProductId())
                 .productName(cart.getProduct().getName())
                 .amount(cart.getAmount())
+                .productAmount(cart.getProduct().getAmount())
                 .price(cart.getProduct().getPrice())
                 .build();
     }
