@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/credit")
-    public ResponseEntity addCreditCard(@PathVariable Long id,
+    public ResponseEntity addCreditCard(@PathVariable("userId") Long id,
                                         @RequestBody CreditCardDto creditCardDto) {
         userService.setCreditCard(id, creditCardDto);
 

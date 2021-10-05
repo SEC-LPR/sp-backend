@@ -22,7 +22,6 @@ public class CreditCard {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @MapsId("userId")
     @JoinColumn(name = "user_id")
     private AppUser user;
 
