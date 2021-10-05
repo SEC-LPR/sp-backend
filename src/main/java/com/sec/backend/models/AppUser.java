@@ -32,8 +32,9 @@ public class AppUser {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "credit_card", unique = true)
-    private String creditCard;
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL)
+    private Set<CreditCard> creditCards;
 
 
     @OneToMany(mappedBy = "user",

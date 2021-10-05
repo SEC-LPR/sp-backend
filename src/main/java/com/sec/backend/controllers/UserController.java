@@ -1,9 +1,6 @@
 package com.sec.backend.controllers;
 
-import com.sec.backend.dtos.CodeDto;
-import com.sec.backend.dtos.UserGetDto;
-import com.sec.backend.dtos.UserLoginDto;
-import com.sec.backend.dtos.UserPostDto;
+import com.sec.backend.dtos.*;
 import com.sec.backend.services.UserService;
 import com.sec.backend.utils.RSAUtils;
 import lombok.RequiredArgsConstructor;
@@ -44,20 +41,20 @@ public class UserController {
 
     @PutMapping("/{userId}/credit")
     public ResponseEntity addCreditCard(@PathVariable Long id,
-                                        @RequestParam(value = "credit") String creditCard) {
-        userService.setCreditCard(id, creditCard);
+                                        @RequestBody CreditCardDto creditCardDto) {
+        userService.setCreditCard(id, creditCardDto);
 
         return new ResponseEntity("successful update", HttpStatus.OK);
 
     }
 
-    @GetMapping("/{userId}/credit")
-    public ResponseEntity checkCreditCard(@PathVariable Long id) {
-
-        userService.checkCreditCard(id);
-
-        return new ResponseEntity("Credit card added", HttpStatus.OK);
-    }
+//    @GetMapping("/{userId}/credit")
+//    public ResponseEntity checkCreditCard(@PathVariable Long id) {
+//
+//        userService.checkCreditCard(id);
+//
+//        return new ResponseEntity("Credit card added", HttpStatus.OK);
+//    }
 
     @GetMapping("/test")
     public ResponseEntity test(@RequestBody CodeDto code) throws Exception {

@@ -1,10 +1,11 @@
 package com.sec.backend.services;
 
+import com.sec.backend.dtos.CreditCardDto;
 import com.sec.backend.dtos.UserGetDto;
 import com.sec.backend.dtos.UserPostDto;
-import com.sec.backend.exceptions.CreditCardNotFoundException;
 import com.sec.backend.exceptions.UsernameConflictException;
 import com.sec.backend.models.AppUser;
+import com.sec.backend.models.CreditCard;
 import com.sec.backend.repositories.AppUserRepository;
 import com.sec.backend.utils.DESUtils;
 import com.sec.backend.utils.RSAUtils;
@@ -56,18 +57,24 @@ public class UserService {
         return mappingToGetDto(appUser);
     }
 
-    public void setCreditCard(Long id, String creditCard) {
-        appUserRepository.updateCreditCardById(id, creditCard);
+    public void setCreditCard(Long id, CreditCardDto creditCardDto) {
+        AppUser user = appUserRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("No such client!"));
+        CreditCard creditCard = mappingToCreditCard(creditCardDto);
+
+        user.getCreditCards().add(creditCard);
+        appUserRepository.save(user);
+
     }
 
-    public void checkCreditCard(Long id) {
-        AppUser appUser = appUserRepository.findById(id)
-                .orElseThrow(() -> new UsernameNotFoundException("No such user"));
-
-        if( appUser.getCreditCard() == null ) {
-            throw new CreditCardNotFoundException("This user has not set credit card.");
-        }
-    }
+//    public void checkCreditCard(Long id) {
+//        AppUser appUser = appUserRepository.findById(id)
+//                .orElseThrow(() -> new UsernameNotFoundException("No such user"));
+//
+//        if( appUser.getCreditCard() == null ) {
+//            throw new CreditCardNotFoundException("This user has not set credit card.");
+//        }
+//    }
 
     private UserGetDto mappingToGetDto(AppUser appUser) {
         return UserGetDto.builder()
@@ -83,6 +90,15 @@ public class UserService {
                 .username(userPostDto.getUsername().toLowerCase(Locale.ROOT))
                 .firstName(userPostDto.getFirstName())
                 .lastName(userPostDto.getLastName())
+                .build();
+    }
+
+    private CreditCard mappingToCreditCard(CreditCardDto creditCardDto) {
+        return CreditCard.builder()
+                .cardName(creditCardDto.getCardName())
+                .cardNumber(creditCardDto.getCardNumber())
+                .expDate(creditCardDto.getExpDate())
+                .cvv(creditCardDto.getCvv())
                 .build();
     }
 
