@@ -20,24 +20,30 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("/{userId}")
-    public ResponseEntity getCartInfo(@PathVariable("userId") Long userId) {
-        List<CartGetDto> listOfCart = cartService.getListOfCart(userId);
+    public ResponseEntity getCartInfo(@PathVariable("userId") String userId) {
+        Long num = Long.getLong(userId);
+        List<CartGetDto> listOfCart = cartService.getListOfCart(num);
         return new ResponseEntity(listOfCart, HttpStatus.OK);
     };
 
     @DeleteMapping("/{userId}/{productId}")
-    public ResponseEntity removeItemFromCart(@PathVariable("userId") Long userId,
-                                             @PathVariable("productId") Long productId) {
-        cartService.removeFromCart(userId, productId);
+    public ResponseEntity removeItemFromCart(@PathVariable("userId") String userId,
+                                             @PathVariable("productId") String productId) {
+        Long userNum = Long.getLong(userId);
+        Long productNum = Long.getLong(productId);
+        cartService.removeFromCart(userNum, productNum);
 
         return new ResponseEntity("successful removal", HttpStatus.OK);
     }
 
     @PutMapping("/{userId}/{productId}")
-    public ResponseEntity updateItemAmount(@PathVariable("userId") Long userId,
-                                           @PathVariable("productId") Long productId,
-                                           @RequestParam("amount") Integer amount) {
-        cartService.updateProductAmount(userId, productId, amount);
+    public ResponseEntity updateItemAmount(@PathVariable("userId") String userId,
+                                           @PathVariable("productId") String productId,
+                                           @RequestParam("amount") String amount) {
+        Long userNum = Long.getLong(userId);
+        Long productNum = Long.getLong(productId);
+        Integer num = Integer.getInteger(amount);
+        cartService.updateProductAmount(userNum, productNum, num);
 
         return new ResponseEntity("successful update", HttpStatus.OK);
     }

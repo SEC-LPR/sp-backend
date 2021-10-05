@@ -1,13 +1,13 @@
 package com.sec.backend.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Data
-@RequiredArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Service
 public class RSAPublicKey {
 

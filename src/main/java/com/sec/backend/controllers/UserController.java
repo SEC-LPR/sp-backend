@@ -43,9 +43,10 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/credit")
-    public ResponseEntity addCreditCard(@PathVariable("userId") Long id,
+    public ResponseEntity addCreditCard(@PathVariable("userId") String id,
                                         @RequestBody CreditCardDto creditCardDto) {
-        userService.setCreditCard(id, creditCardDto);
+        Long userId = Long.getLong(id);
+        userService.setCreditCard(userId, creditCardDto);
 
         return new ResponseEntity("successful update", HttpStatus.OK);
 

@@ -23,8 +23,14 @@ public interface CartRepository extends JpaRepository<Cart, CartId> {
     int deleteCart(@Param("userId") Long userId, @Param("productId") Long productId);
 
     @Modifying
+    @Query("delete from Cart c where c.user.id = :userId")
+    int deleteCartByUserId(@Param("userId") Long userId);
+
+    @Modifying
     @Query("update Cart c set c.amount = :amount where c.user.id = :userId and c.product.id = :productId")
     int updateProductAmount(@Param("amount") Integer amount,
                             @Param("userId") Long userId,
                             @Param("productId") Long productId);
+
+
 }
